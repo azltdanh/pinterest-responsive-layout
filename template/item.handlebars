@@ -1,11 +1,22 @@
-<div id="collra_result">
+﻿<div id="collra_result">
   {{#each this}}
-  	<img src="{{item.img}}">
-  	<h2>[{{id}}]{{item.title}}</h2>
-  	<div>{{item.description}}</div>
-  	<ul>
-  		<li>{{statistic.views}}</li>
-  		<li>{{statistic.likes}}</li>
-  	</ul>
+    <div class="grid-item col-lg-3">
+        <div class="grid-item-photo">
+            <a href="#">
+                <img src="{{item.img}}" class="img-responsive">
+                <div class="grid-item-info">
+                    <div class="info">
+                        <span title="comments" class="social-number"><span class="glyphicon glyphicon-comment"></span>26</span>
+                    </div>
+                    <h2>[{{id}}]{{item.title}}</h2>
+                    <div>{{item.description}}</div>
+                    <ul>
+                        <li>{{statistic.views}}</li>
+                        <li>{{statistic.likes}}</li>
+                    </ul>
+                </div>
+            </a>
+        </div>
+    </div>
   {{/each}}
 </div>
