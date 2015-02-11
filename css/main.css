@@ -101,27 +101,114 @@ textarea {
  * Base structure
  */
 
-/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+    background: url("images/bg.png") repeat scroll 0 0 #e3e3e3;
+    color: #717171;
 }
 
+a, a:visited, a:hover, a:focus {
+    color: #717171;
+    text-decoration: none;
+}
+
+/*
+ * Header
+ */
+
+#nav {
+    background: none repeat scroll 0 0 #fff;
+    border: 0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    margin: 0;
+}
+
+    #nav .media-left {
+        padding: 0 10px 0 5px;
+    }
+
+    #nav .media-body {
+        padding: 8px 0;
+        vertical-align: bottom;
+    }
+
+    #nav .media-right {
+        padding: 8px 15px;
+        vertical-align: bottom;
+        white-space: nowrap;
+    }
+
+@media (max-width: 767px) {
+    #nav .media-body {
+        display: initial;
+    }
+
+        #nav .media-body .input-group {
+            padding: 8px 15px;
+        }
+
+    #nav .media-right {
+        position: absolute;
+        top: 62px;
+        right: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    #nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1030;
+    }
+}
+
+/*
+ * Logo
+ */
+
+.logo {
+    background: url("../img/collra-logo-1.png") no-repeat scroll right top rgba(0, 0, 0, 0);
+    width: 285px;
+    height: 112px;
+    display: block;
+    text-indent: -999px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    /* Move down content because we have a fixed navbar that is 50px tall */
+    body {
+        padding-top: 50px;
+    }
+
+    .logo {
+        background-image: url("../img/collra-logo-2.png");
+        width: 71px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 1200px) {
+    /* Move down content because we have a fixed navbar that is 112px tall */
+    body {
+        padding-top: 112px;
+    }
+
+    .logo {
+        background-image: url("../img/collra-logo-1.png");
+        width: 285px;
+        height: 112px;
+    }
+}
 
 /*
  * Global add-ons
  */
 
 .sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
-.navbar-fixed-top {
-  border: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
 /*
@@ -130,40 +217,47 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: none;
+    display: none;
 }
-@media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 51px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
-  }
+
+@media (min-width: 1200px) {
+
+    .sidebar {
+        position: fixed;
+        top: 113px;
+        bottom: 0;
+        right: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        border-right: 1px solid #eee;
+        background-color: #f5f5f5;
+    }
+    .sidebar-inner {
+
+    }
 }
 
 /* Sidebar navigation */
 .nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
 }
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #428bca;
-}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
 
 
 /*
@@ -171,55 +265,72 @@ body {
  */
 
 .main {
-  padding: 20px;
+    padding: 20px;
 }
+
 @media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
+    .main {
+        /*padding-right: 40px;*/
+        /*padding-left: 40px;*/
+    }
 }
+
 .main .page-header {
-  margin-top: 0;
+    margin-top: 0;
 }
 
+/* ==========================================================================
+   GRID layout
+   ========================================================================== */
 
-/*
- * grid-item
- */
+.grid-wrapper .grid {
+    margin: 0 auto;
+    min-width: 305px;
+}
 
 .grid-item {
     float: left;
 }
-.grid-item .grid-item-featured, .grid-item .grid-item-photo {
-    background: none repeat scroll 0 0 #fff;
-    border-radius: 3px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-    margin: 0 5px 10px;
-    padding: 8px;
-    text-align: left;
-    vertical-align: top;
-    /*width: 300px;*/
-}
-.grid-item .grid-item-photo {
-    padding: 0;
-}
-.grid-item .grid-item-photo .grid-item-info {
-    padding: 4px 8px;
-}
-.grid-item .grid-item-photo .grid-item-info .description {
-    text-align: left;
-}
-.grid-item .grid-item-photo .grid-item-info .description img {
-    max-width: 100%;
-    width: auto;
-}
-.grid-item .grid-item-photo img {
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    width: 300px;
-}
 
+    .grid-item .grid-item-featured, .grid-item .grid-item-photo {
+        background: none repeat scroll 0 0 #fff;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+        margin: 0 5px 10px;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+        width: 300px;
+    }
+
+    .grid-item .grid-item-photo {
+        padding: 0;
+    }
+
+        .grid-item .grid-item-photo .grid-item-info {
+            padding: 4px 8px;
+        }
+
+            .grid-item .grid-item-photo .grid-item-info .description {
+                text-align: left;
+            }
+
+                .grid-item .grid-item-photo .grid-item-info .description img {
+                    max-width: 100%;
+                    width: auto;
+                }
+
+        .grid-item .grid-item-photo img {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            width: 300px;
+        }
+
+
+.info .glyphicon {
+    font-size: 15px;
+    margin-right: 5px;
+}
 
 
 
@@ -248,12 +359,12 @@ body {
     *text-indent: -9999px;
 }
 
-.ir:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 150%;
-}
+    .ir:before {
+        content: "";
+        display: block;
+        width: 0;
+        height: 150%;
+    }
 
 /*
  * Hide from both screenreaders and browsers: h5bp.com/u
@@ -279,20 +390,20 @@ body {
     width: 1px;
 }
 
-/*
+    /*
  * Extends the .visuallyhidden class to allow the element to be focusable
  * when navigated to via the keyboard: h5bp.com/p
  */
 
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
-}
+    .visuallyhidden.focusable:active,
+    .visuallyhidden.focusable:focus {
+        clip: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        position: static;
+        width: auto;
+    }
 
 /*
  * Hide visually and from screenreaders, but maintain layout
@@ -343,10 +454,7 @@ body {
     /* Style adjustments for viewports that meet the condition */
 }
 
-@media print,
-       (-o-min-device-pixel-ratio: 5/4),
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 120dpi) {
+@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
     /* Style adjustments for high resolution devices */
 }
 
@@ -368,9 +476,9 @@ body {
         text-decoration: underline;
     }
 
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
 
     abbr[title]:after {
         content: " (" attr(title) ")";

@@ -1,9 +1,9 @@
-﻿<div id="collra_result">
-  {{#each this}}
-    <div class="grid-item col-lg-3">
+﻿<div id="collra_result" class="grid">
+    {{#each this}}
+    <div class="grid-item">
         <div class="grid-item-photo">
             <a href="#">
-                <img src="{{item.img}}" class="img-responsive">
+                <img src="{{item.img}}">
                 <div class="grid-item-info">
                     <div class="info">
                         <span title="comments" class="social-number"><span class="glyphicon glyphicon-comment"></span>26</span>
@@ -18,5 +18,5 @@
             </a>
         </div>
     </div>
-  {{/each}}
+    {{/each}}
 </div>
