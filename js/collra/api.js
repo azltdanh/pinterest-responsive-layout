@@ -30,7 +30,8 @@ function collraApi()
 	{
 		return {
 			'views' : _generateNumber(500000),
-			'likes' : _generateNumber(500000),
+			'likes': _generateNumber(500000),
+			'comments': _generateNumber(500000),
 			'rating' : _generateNumber(5)
 		}
 	}
@@ -84,7 +85,7 @@ function collraApi()
 			'last_name' : availableNames[_generateNumber(availableNames.length)-1],
 			'screen_name' : availableNames[_generateNumber(availableNames.length)-1].substring(0, 2) + 
 							availableNames[_generateNumber(availableNames.length)-1].substring(0, 2),
-			'avatar' : '/img/user/avatar.png'
+			'avatar' : '/img/user/user.png'
 		}
 
 		return user

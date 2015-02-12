@@ -4,17 +4,27 @@
         <div class="grid-item-photo">
             <a href="#">
                 <img src="{{item.img}}">
-                <div class="grid-item-info">
-                    <div class="info">
-                        <span title="comments" class="social-number"><span class="glyphicon glyphicon-comment"></span>26</span>
-                    </div>
-                    <h2>[{{id}}]{{item.title}}</h2>
-                    <div>{{item.description}}</div>
-                    <ul>
-                        <li>{{statistic.views}}</li>
-                        <li>{{statistic.likes}}</li>
-                    </ul>
+            </a>
+            <div class="glyphicon rating">
+                <div>
+                    <span>{{statistic.rating}}</span>
                 </div>
+            </div>
+        </div>
+        <div class="grid-item-info">
+            <h2 class="title">[{{id}}]{{item.title}}</h2>
+            <div class="description">{{item.description}}</div>
+            <ul class="social-number list-inline">
+                <li><span title="{{statistic.views}} views"><span class="glyphicon glyphicon-eye-open"></span>{{statistic.views}}</span></li>
+                <li><span title="{{statistic.likes}} likes"><span class="glyphicon glyphicon-thumbs-up"></span>{{statistic.likes}}</span></li>
+                <li><span title="{{statistic.comments}} comments"><span class="glyphicon glyphicon-comment"></span>{{statistic.comments}}</span></li>
+            </ul>
+        </div>
+        <hr />
+        <div class="grid-item-user">
+            <a href="#">
+                <img src="{{user.avatar}}" alt="Az Ltdanh" class="img-circle" width="34" height="34">
+                <span class="hidden-sm hidden-md">{{user.screen_name}}</span>
             </a>
         </div>
     </div>
