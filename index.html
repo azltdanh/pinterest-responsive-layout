@@ -15,7 +15,8 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="css/jquery.tagit.css" />
+    <link href="css/tagit.ui-zendesk.css" rel="stylesheet" />
     <!--<link rel="stylesheet" href="css/normalize.css">-->
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -31,7 +32,6 @@
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
     <!-- Header -->
     <nav id="nav" class="navbar navbar-default"></nav>
 
@@ -50,10 +50,13 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script>window.jQuery.Widget || document.write('<script src="js/vendor/jquery-ui-1.10.2.min.js"><\/script>')</script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
-
+    <script src="js/vendor/tag-it.min.js"></script>
+    <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
     <script src="js/vendor/masonry.pkgd.min.js"></script>
 
     <script src="js/plugins.js"></script>
@@ -65,12 +68,24 @@
 
         var collra = new collraApi();
 
-        $("#nav").render('/template/header');
+        $("#nav").render('/template/header', null, function () {
+            $("#searchInputs").tagit({
+                placeholderText : 'Search for...',
+                allowSpaces: true,
+                availableTags: collra.getAvailableTags()
+            });
+
+        });
 
         $("#list").render('/template/item', collra.search(), function () {
-            $("#collra_result").masonry({
-                itemSelector: '.grid-item',              
+            // initialize Masonry
+            var $container = $('#collra_result').masonry({
+                //itemSelector: '.grid-item',
                 isFitWidth: true
+            });
+            // layout Masonry again after all images have loaded
+            $container.imagesLoaded(function () {
+                $container.masonry();
             });
         });
 
