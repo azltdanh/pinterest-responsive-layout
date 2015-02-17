@@ -180,10 +180,9 @@ a, a:visited, a:hover, a:focus {
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("../img/collra-logo-3.png");
-    /* background-image: url("../img/collra-logo-1.png");
-	background-size: 87px 34px; */
+    background-color: rgba(0, 0, 0, 0);    
+    background-image: url("../img/collra-logo-1.png");
+	background-size: 87px 34px;
 	width: 87px;
 	height: 50px;
     display: block;
@@ -191,6 +190,10 @@ a, a:visited, a:hover, a:focus {
     overflow: hidden;
 }
 
+.lt-ie9 .logo{
+	background-image: url("../img/collra-logo-3.png");
+}
+	
 @media (min-width: 768px) {
     /* Move down content because we have a fixed navbar that is 50px tall */
     body {
@@ -202,15 +205,20 @@ a, a:visited, a:hover, a:focus {
 		background-size: auto auto;
         width: 71px;
     }
+	.lt-ie9 .logo{
+		background-image: url("../img/collra-logo-2.png");
+	}
 }
 
 @media (min-width: 1200px) {
-    .logo {        
-		background-image: url("../img/collra-logo-3.png");
-        /* background-image: url("../img/collra-logo-1.png");
-		background-size: 87px 34px; */		
+    .logo {        		
+        background-image: url("../img/collra-logo-1.png");
+		background-size: 87px 34px;		
         width: 87px;
     }
+	.lt-ie9 .logo{
+		background-image: url("../img/collra-logo-3.png");
+	}
 }
 
 /*
