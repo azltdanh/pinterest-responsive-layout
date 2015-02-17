@@ -124,7 +124,7 @@ a, a:visited, a:hover, a:focus {
 }
 
     #nav .media-left {
-        padding: 0 10px 0 5px;
+        padding: 0 15px 0 15px;
     }
 
     #nav .media-body {
@@ -144,12 +144,12 @@ a, a:visited, a:hover, a:focus {
     }
 
         #nav .media-body .input-group {
-            padding: 8px 15px;
+            padding: 0 15px 8px 15px;
         }
 
     #nav .media-right {
         position: absolute;
-        top: 62px;
+        top: 0;
         right: 0;
     }
 }
@@ -172,15 +172,6 @@ a, a:visited, a:hover, a:focus {
         }
 }
 
-@media (min-width: 1200px) {
-    #nav .media-body {
-        padding-top: 70px;
-    }
-
-    #nav .media-right {
-        padding-top: 70px;
-    }
-}
 /*
  * Logo
  */
@@ -188,11 +179,13 @@ a, a:visited, a:hover, a:focus {
 .logo {
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-position: right top;
+    background-position: center center;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("../img/collra-logo-1.png");
-    width: 285px;
-    height: 112px;
+    background-image: url("../img/collra-logo-3.png");
+    /* background-image: url("../img/collra-logo-1.png");
+	background-size: 87px 34px; */
+	width: 87px;
+	height: 50px;
     display: block;
     text-indent: -999px;
     overflow: hidden;
@@ -206,21 +199,17 @@ a, a:visited, a:hover, a:focus {
 
     .logo {
         background-image: url("../img/collra-logo-2.png");
+		background-size: auto auto;
         width: 71px;
-        height: 50px;
     }
 }
 
 @media (min-width: 1200px) {
-    /* Move down content because we have a fixed navbar that is 112px tall */
-    body {
-        padding-top: 112px;
-    }
-
-    .logo {
-        background-image: url("../img/collra-logo-1.png");
-        width: 285px;
-        height: 112px;
+    .logo {        
+		background-image: url("../img/collra-logo-3.png");
+        /* background-image: url("../img/collra-logo-1.png");
+		background-size: 87px 34px; */		
+        width: 87px;
     }
 }
 
@@ -237,7 +226,7 @@ a, a:visited, a:hover, a:focus {
 
     #sidebar {
         position: fixed;
-        top: 113px;
+        top: 51px;
         bottom: 0;
         right: 0;
         z-index: 1000;
@@ -362,12 +351,8 @@ a, a:visited, a:hover, a:focus {
         .grid-item .grid-item-info .social-number {
             margin-bottom: 0;
             text-align: right;
-            color: #dedede;
+            color: #999;
         }
-
-            .grid-item .grid-item-info .social-number li:hover {
-                color: #717171;
-            }
 
             .grid-item .grid-item-info .social-number .glyphicon {
                 font-size: 15px;
