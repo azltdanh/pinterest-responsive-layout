@@ -380,8 +380,19 @@ a, a:visited, a:hover, a:focus {
         text-overflow: ellipsis;
     }
 
-
-
+.ias-spinner, .ias-noneleft {
+    background: none repeat scroll 0 0 #000;
+    border-radius: 10px;
+    bottom: 40px;
+    color: #fff;
+    left: 45%;
+    opacity: 0.8;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    width: 200px;
+    z-index: 100;
+}
 
 /* ==========================================================================
    Helper classes

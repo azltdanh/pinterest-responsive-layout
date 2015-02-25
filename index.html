@@ -58,6 +58,7 @@
     <script src="js/vendor/tag-it.min.js"></script>
     <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
     <script src="js/vendor/masonry.pkgd.min.js"></script>
+    <script src="js/vendor/jquery-ias.min.js"></script>
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -68,25 +69,72 @@
 
         var collra = new collraApi();
 
+
         $("#nav").render('/template/header', null, function () {
+
+            // init tagit
             $("#searchInputs").tagit({
-                placeholderText : 'Search for...',
+                placeholderText: 'Search for...',
                 allowSpaces: true,
                 availableTags: collra.getAvailableTags()
             });
 
+            // submit action
+            //$('#searchForm').on('submit', function (e) {
+            //    e.preventDefault();
+
+            //}).submit();
+
         });
 
-        $("#list").render('/template/item', collra.search(), function () {
+        $("#list").render('/template/item', collra.search($("#searchInputs").val()), function () {
+
+            //console.log($("#searchInputs").val())
+
             // initialize Masonry
-            var $container = $('#collra_result').masonry({
-                //itemSelector: '.grid-item',
+            var $container = $('#collra_result');
+
+            $container.masonry({
+                itemSelector: '.grid-item',
                 isFitWidth: true
             });
+
             // layout Masonry again after all images have loaded
             $container.imagesLoaded(function () {
                 $container.masonry();
             });
+
+            var ias = $.ias({
+                container: ".grid",
+                item: ".grid-item",
+                pagination: ".pager",
+                next: "a",
+                delay: 1200
+            });
+
+            ias.on('render', function (newElements) {
+                $(newElements).css({ opacity: 0 });
+            });
+
+            ias.on('rendered', function (newElements) {
+                // hide new items while they are loading
+                var $newElems = $(newElements);//.css({ opacity: 0 });
+                // ensure that images load before adding to masonry layout
+                $newElems.imagesLoaded(function () {
+                    // show elems now they're ready
+                    $newElems.animate({ opacity: 1 });
+                    $container.masonry('appended', $newElems, true);
+                });
+            });
+
+            ias.extension(new IASSpinnerExtension({
+                src: 'img/loading.gif',
+                html: '<div class="ias-spinner" style=""><img src="{src}" alt="Loading..."><div><em>Loading next items...</em></div></div>'
+            }));
+            ias.extension(new IASNoneLeftExtension({
+                html: '<div class="ias-noneleft" style="text-align:center"><p><em>You reached the end!</em></p></div>'
+            }));
+
         });
 
         $("#sidebar").render('/template/sidebar');
