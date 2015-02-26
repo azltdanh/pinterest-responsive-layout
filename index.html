@@ -70,7 +70,7 @@
 
         var collra = new collraApi();
 
-        function initColorBox() {
+        function initColorbox() {
             $(".grid-item-photo > a").colorbox({
                 width: "90%",
                 height: "90%",
@@ -117,7 +117,7 @@
             });
 
             // colorbox
-            initColorBox();
+            initColorbox();
 
             var ias = $.ias({
                 container: ".grid",
@@ -139,7 +139,7 @@
                     // show elems now they're ready
                     $newElems.animate({ opacity: 1 });
                     $container.masonry('appended', $newElems, true);
-                    initColorBox();
+                    initColorbox();
                 });
             });
 
