@@ -59,6 +59,7 @@
     <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
     <script src="js/vendor/masonry.pkgd.min.js"></script>
     <script src="js/vendor/jquery-ias.min.js"></script>
+    <script src="js/vendor/jquery.colorbox-min.js"></script>
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -69,6 +70,17 @@
 
         var collra = new collraApi();
 
+        function initColorBox() {
+            $(".grid-item-photo > a").colorbox({
+                width: "90%",
+                height: "90%",
+                fixed: true,
+                inline: true,
+                onOpen: function () {
+                    //$('#cboxLoadedContent .grid-item').removeAttr('style');
+                }
+            });
+        }
 
         $("#nav").render('/template/header', null, function () {
 
@@ -104,6 +116,9 @@
                 $container.masonry();
             });
 
+            // colorbox
+            initColorBox();
+
             var ias = $.ias({
                 container: ".grid",
                 item: ".grid-item",
@@ -124,6 +139,7 @@
                     // show elems now they're ready
                     $newElems.animate({ opacity: 1 });
                     $container.masonry('appended', $newElems, true);
+                    initColorBox();
                 });
             });
 
