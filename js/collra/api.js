@@ -132,13 +132,61 @@ function collraApi() {
         return tags
     }
 
+    function _generateAttributes(max)
+	{
+        var availableAttributes =
+		[
+			'Märke',	
+			'Apparattyp',	
+			'År',
+			'Hemsida',	
+			'Typ/namn',	
+			'Rör',	
+			'Kommentarer',	
+			'Köpta',
+			'Plats',
+			'Pris',
+			'Category',
+			'Publisher / manufacturer',
+			'Country of publication',
+			'Cartographer/designer',
+			'Year', 
+			'Print Run',
+			'Collection / set',
+			'Theme',	
+			'Dimensions'
+		];
+
+        var attributes = {};
+        for (var i = 0; i < _generateNumber(max) ; i++) 
+        {
+            attributes[availableAttributes[_generateNumber(availableAttributes.length) - 1]] = _generateText(400);
+        }
+        return attributes
+
+	}
+
+    function _generateComments(max)
+	{
+        var comments = [];
+        for (var i = 0; i < _generateNumber(max) ; i++) 
+        {
+            comments.push(
+            	{
+            		'user' : _generateUser(),
+	          		'comment' : _generateText(5000)
+            	});
+        }
+        return comments
+	}
+
     function _generateItem(id) {
         var item = {
             'id': id,
             'item': {
                 'title': _generateText(75),
                 'img': _generateImg(),
-                'description': _generateText(512),
+                'description': _generateText(512)
             },
             'user': _generateUser(),
             'statistic': _generateStatistic(),
@@ -152,8 +200,18 @@ function collraApi() {
         return _result;
     }
 
+    function _getItem(id) {
+    	var item = $.extend(true, {}, _result[id-1], 
+    	{
+    		'item' : {'attributes' : _generateAttributes(20)},
+    		'comments' : _generateComments(20)
+    	});
+        return item;
+    }    
+
     return {
         'search': _search,
+        'getItem': _getItem,
         'getAvailableTags': _getAvailableTags
     }
 }
