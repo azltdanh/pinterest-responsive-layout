@@ -180,20 +180,20 @@ a, a:visited, a:hover, a:focus {
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
-    background-color: rgba(0, 0, 0, 0);    
+    background-color: rgba(0, 0, 0, 0);
     background-image: url("../img/collra-logo-1.png");
-	background-size: 87px 34px;
-	width: 87px;
-	height: 50px;
+    background-size: 87px 34px;
+    width: 87px;
+    height: 50px;
     display: block;
     text-indent: -999px;
     overflow: hidden;
 }
 
-.lt-ie9 .logo{
-	background-image: url("../img/collra-logo-3.png");
+.lt-ie9 .logo {
+    background-image: url("../img/collra-logo-3.png");
 }
-	
+
 @media (min-width: 768px) {
     /* Move down content because we have a fixed navbar that is 50px tall */
     body {
@@ -202,23 +202,25 @@ a, a:visited, a:hover, a:focus {
 
     .logo {
         background-image: url("../img/collra-logo-2.png");
-		background-size: auto auto;
+        background-size: auto auto;
         width: 71px;
     }
-	.lt-ie9 .logo{
-		background-image: url("../img/collra-logo-2.png");
-	}
+
+    .lt-ie9 .logo {
+        background-image: url("../img/collra-logo-2.png");
+    }
 }
 
 @media (min-width: 1200px) {
-    .logo {        		
+    .logo {
         background-image: url("../img/collra-logo-1.png");
-		background-size: 87px 34px;		
+        background-size: 87px 34px;
         width: 87px;
     }
-	.lt-ie9 .logo{
-		background-image: url("../img/collra-logo-3.png");
-	}
+
+    .lt-ie9 .logo {
+        background-image: url("../img/collra-logo-3.png");
+    }
 }
 
 /*
@@ -385,15 +387,21 @@ a, a:visited, a:hover, a:focus {
     border-radius: 10px;
     bottom: 40px;
     color: #fff;
-    left: 45%;
+    left: 50%;
     opacity: 0.8;
     padding: 10px;
     position: fixed;
     text-align: center;
     width: 200px;
+    margin-left: -100px;
     z-index: 100;
 }
 
+@media (min-width: 1200px) {
+    .ias-spinner, .ias-noneleft {
+        left: 41.66665%; /* .col-lg-10 main have the width of 83.3333% */
+    }
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
