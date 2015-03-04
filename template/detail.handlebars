@@ -1,0 +1,82 @@
+﻿<div id="collra_result" class="grid-item-detail">
+    <a class="btn btn-default btn-close"><span class="glyphicon glyphicon-arrow-left"></span></a>
+    {{#each this}}
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="grid-item" id="{{id}}">
+                <div class="grid-item-photo">
+                    <a href="#{{id}}">
+                        <img src="{{item.img}}">
+                    </a>
+                    <div class="glyphicon rating">
+                        <div>
+                            <span>{{statistic.rating}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item-info">
+                    <h2 class="title">[{{id}}]{{item.title}}</h2>
+                    <div class="description">{{item.description}}</div>
+                    <ul class="social-number list-inline">
+                        <li><span title="{{statistic.views}} views"><span class="glyphicon glyphicon-eye-open"></span>{{statistic.views}}</span></li>
+                        <li><span title="{{statistic.likes}} likes"><span class="glyphicon glyphicon-thumbs-up"></span>{{statistic.likes}}</span></li>
+                        <li><span title="{{statistic.comments}} comments"><span class="glyphicon glyphicon-comment"></span>{{statistic.comments}}</span></li>
+                    </ul>
+                </div>
+                <hr />
+                <div class="grid-item-user">
+                    <a href="#">
+                        <img src="{{user.avatar}}" alt="{{user.screen_name}}" class="img-circle" width="34" height="34">
+                        <strong>{{user.screen_name}}</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="grid-item">
+                <div class="grid-item-attributes">
+                    {{#each item.attributes}}
+                    <dl class="dl-horizontal">
+                        <dt>{{@key}}:</dt>
+                        <dd>{{this}}</dd>
+                    </dl>
+                    <div><strong></strong> </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {{#comments}}
+            <div class="grid-item">
+                <div class="grid-item-user">
+                    <a href="#">
+                        <img src="{{user.avatar}}" alt="{{user.screen_name}}" class="img-circle" width="34" height="34">
+                        <strong>{{user.screen_name}}</strong>
+                    </a>
+                </div>
+                <div class="grid-item-user-comment">{{comment}}</div>
+            </div>
+            {{/comments}}
+            <div class="grid-item">
+                <div class="grid-item-user">
+                    <a href="#">
+                        <img src="img/user/user.png" alt="Az Ltdanh" class="img-circle" width="34" height="34">
+                        <strong>Az Ltdanh</strong>
+                    </a>
+                </div>
+                <div class="grid-item-user-comment">
+                    <form>
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                            <textarea class="form-control" rows="3" placeholder="Add a comment..."></textarea>
+                        </div>
+                    </form>
+                    <button type="submit" class="btn btn-primary">Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

@@ -59,7 +59,7 @@
     <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
     <script src="js/vendor/masonry.pkgd.min.js"></script>
     <script src="js/vendor/jquery-ias.min.js"></script>
-    <script src="js/vendor/jquery.colorbox-min.js"></script>
+    <!--<script src="js/vendor/jquery.colorbox-min.js"></script>-->
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -69,18 +69,33 @@
     <script type="text/javascript">
 
         var collra = new collraApi();
+        var current_result = undefined;
 
-        function initColorbox() {
-            $(".grid-item-photo > a").colorbox({
-                width: "90%",
-                height: "90%",
-                fixed: true,
-                inline: true,
-                onOpen: function () {
-                    //$('#cboxLoadedContent .grid-item').removeAttr('style');
-                }
+        function _closeDetailView(e) {
+            detail_view = $('#collra_result').detach();
+            $("#list").append(current_result);
+            // enable infinite scroll
+            $.ias().bind();
+        }
+
+        $(document).on("click", ".grid-item-detail > .btn-close", function () { _closeDetailView });
+
+        function _openDetailView(e) {
+            // get the current id of clicked item.
+            var anchor = $(e.target).closest('a');
+            current_id = anchor.attr('href').replace('#', '');
+            current_result = $('#collra_result').detach();
+
+            // just put somthing on the detail view.
+            $("#list").render('/template/detail', [collra.getItem(current_id)], function () {
+                // stop infinite scroll
+                $.ias().unbind();
+                // just try to close the detail on something
+                $(".grid-item-detail > .btn-close").click(_closeDetailView);
             });
         }
+
+
 
         $("#nav").render('/template/header', null, function () {
 
@@ -116,8 +131,8 @@
                 $container.masonry();
             });
 
-            // colorbox
-            initColorbox();
+            //initColorbox();
+            $(".grid-item-photo > a").click(_openDetailView)
 
             var ias = $.ias({
                 container: ".grid",
@@ -139,7 +154,8 @@
                     // show elems now they're ready
                     $newElems.animate({ opacity: 1 });
                     $container.masonry('appended', $newElems, true);
-                    initColorbox();
+                    //initColorbox();
+                    $(".grid-item-photo > a").click(_openDetailView)
                 });
             });
 
