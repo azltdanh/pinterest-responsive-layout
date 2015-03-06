@@ -59,7 +59,6 @@
     <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
     <script src="js/vendor/masonry.pkgd.min.js"></script>
     <script src="js/vendor/jquery-ias.min.js"></script>
-    <!--<script src="js/vendor/jquery.colorbox-min.js"></script>-->
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -70,10 +69,12 @@
 
         var collra = new collraApi();
         var current_result = undefined;
+        var current_scroll = 0;
 
         function _closeDetailView(e) {
             detail_view = $('#collra_result').detach();
             $("#list").append(current_result);
+            $(window).scrollTop(current_scroll);
             // enable infinite scroll
             $.ias().bind();
         }
@@ -84,6 +85,7 @@
             // get the current id of clicked item.
             var anchor = $(e.target).closest('a');
             current_id = anchor.attr('href').replace('#', '');
+            current_scroll = $(window).scrollTop();
             current_result = $('#collra_result').detach();
 
             // just put somthing on the detail view.
@@ -91,7 +93,12 @@
                 // stop infinite scroll
                 $.ias().unbind();
                 // just try to close the detail on something
-                $(".grid-item-detail > .btn-close").click(_closeDetailView);
+                $(".grid-item-detail > .btn-close").click(_closeDetailView)
+                    .affix({
+                        offset: {
+                            top: 100
+                        }
+                    })
             });
         }
 
@@ -131,7 +138,7 @@
                 $container.masonry();
             });
 
-            //initColorbox();
+            // bind click to open detail view
             $(".grid-item-photo > a").click(_openDetailView)
 
             var ias = $.ias({
@@ -154,7 +161,7 @@
                     // show elems now they're ready
                     $newElems.animate({ opacity: 1 });
                     $container.masonry('appended', $newElems, true);
-                    //initColorbox();
+                    // bind click to open detail view
                     $(".grid-item-photo > a").click(_openDetailView)
                 });
             });

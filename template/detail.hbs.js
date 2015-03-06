@@ -58,7 +58,7 @@
     + escapeExpression(((helper = (helper = helpers.comment || (depth0 != null ? depth0.comment : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"comment","hash":{},"data":data}) : helper)))
     + "</div>\r\n            </div>\r\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, buffer = "﻿<div id=\"collra_result\" class=\"grid-item-detail\">\r\n    <a class=\"btn btn-default btn-close\"><span class=\"glyphicon glyphicon-arrow-left\"></span></a>\r\n";
+  var stack1, buffer = "﻿<div id=\"collra_result\" class=\"grid-item-detail\">\r\n    <a class=\"btn btn-default btn-close\" data-spy=\"affix\" data-offset-top=\"92\"><span class=\"glyphicon glyphicon-arrow-left\"></span></a>\r\n";
   stack1 = helpers.each.call(depth0, depth0, {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>";

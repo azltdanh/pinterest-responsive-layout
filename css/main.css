@@ -408,6 +408,19 @@ a, a:visited, a:hover, a:focus {
         background-color: #FFFFFF;
     }
 
+@media (max-width: 767px) {
+    .grid-item-detail .btn-close.affix-top {
+        top: 92px;
+    }
+
+    .grid-item-detail .btn-close.affix {
+        top: 0;
+    }
+
+    .grid-item-detail .btn-close.affix-bottom {
+    }
+}
+
 .ias-spinner, .ias-noneleft {
     background: none repeat scroll 0 0 #000;
     border-radius: 10px;
