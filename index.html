@@ -41,6 +41,7 @@
             <!-- Main -->
             <div id="main" class="col-lg-10 main">
                 <div id="list" class="grid-wrapper"></div>
+                <div id="list_next" class="hidden"></div>
             </div>
             <!-- Sidebar -->
             <div id="sidebar" class="col-lg-2 col-lg-offset-10"></div>
@@ -58,7 +59,6 @@
     <script src="js/vendor/tag-it.min.js"></script>
     <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
     <script src="js/vendor/masonry.pkgd.min.js"></script>
-    <script src="js/vendor/jquery-ias.min.js"></script>
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -71,36 +71,119 @@
         var current_result = undefined;
         var current_scroll = 0;
 
-        function _closeDetailView(e) {
-            detail_view = $('#collra_result').detach();
-            $("#list").append(current_result);
-            $(window).scrollTop(current_scroll);
-            // enable infinite scroll
-            $.ias().bind();
+        function _isElementInView(elem) {
+            if (elem.length > 0) {
+                var docViewTop = $(window).scrollTop();
+                var docViewBottom = docViewTop + $(window).height();
+
+                var elemTop = $(elem).offset().top;
+                var elemBottom = elemTop + $(elem).height();
+
+                return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+            }
+            return false;
         }
 
-        $(document).on("click", ".grid-item-detail > .btn-close", function () { _closeDetailView });
+        function _infiniteScroll(e) {
+            var pager = $("#list .grid-pager");
+            if (_isElementInView(pager)) {
+
+                // disable infinite scroll
+                $(window).unbind('scroll');
+
+                if (pager.data('page') <= 10) { // max is 10 pages
+
+                    // Loading next items...
+                    console.log('Loading next items...');
+
+                    // show spinner
+                    $("#list .grid-spinner").show();
+
+
+                    setTimeout(function () {
+                        var term = $("#searchInputs").val();
+                        var page = pager.data('page');
+
+                        $('#list_next').render('/template/item', collra.search(term, page), function () {
+
+                            var $newElems = $('#list_next .grid-item').css({ opacity: 0 }).insertBefore("#list .grid-pager");
+
+                            // ensure that images load before adding to masonry layout
+                            $newElems.imagesLoaded(function () {
+                                // show elems now they're ready
+                                $newElems.animate({ opacity: 1 });
+                                $('#list #collra_result').masonry('appended', $newElems);
+
+                                // enable scoll again
+                                $(window).scroll(_infiniteScroll);
+
+                                // hide spinner
+                                $("#list .grid-spinner").hide();
+
+                            });
+
+                            // clear temp data
+                            $('#list_next').html('');
+
+                            // increase page count
+                            pager.data('page', page + 1);
+
+                        });
+                    }, 1200); // simulate loading time
+
+                }
+                else {
+                    //You reached the end!
+                    console.log('You reached the end!');
+
+                    // hide spinner
+                    $("#list .grid-spinner").hide();
+
+                    // show spinner
+                    $("#list .grid-noneleft").show();
+                }
+            };
+        }
+
+        function _closeDetailView(e) {
+            detail_view = $('#list #collra_result').detach();
+            $("#list").append(current_result);
+            $(window).scrollTop(current_scroll);
+
+            // enable scoll again
+            // $.ias().bind();
+            $(window).scroll(_infiniteScroll);
+        }
 
         function _openDetailView(e) {
+            e.preventDefault();
+
             // get the current id of clicked item.
             var anchor = $(e.target).closest('a');
             current_id = anchor.attr('href').replace('#', '');
             current_scroll = $(window).scrollTop();
-            current_result = $('#collra_result').detach();
+            current_result = $('#list #collra_result').detach();
+
+            // disable infinite scroll
+            // $.ias().unbind();
+            $(window).unbind('scroll');
+
 
             // just put somthing on the detail view.
             $("#list").render('/template/detail', [collra.getItem(current_id)], function () {
-                // stop infinite scroll
-                $.ias().unbind();
-                // just try to close the detail on something
-                $(".grid-item-detail > .btn-close").click(_closeDetailView)
-                    .affix({
-                        offset: {
-                            top: 100
-                        }
-                    })
+                $(window).scrollTop(0);
+                $(".close-detail-view").affix({ offset: { top: function () { return (this.top = $('#nav').outerHeight(true)) } } });
             });
         }
+
+        // bind infinite scroll
+        $(window).scroll(_infiniteScroll);
+
+        // bind click to .open-detail-view
+        $(document).on('click', '.open-detail-view', _openDetailView);
+
+        // bind click to .close-detail-view
+        $(document).on('click', '.close-detail-view', _closeDetailView);
 
 
 
@@ -126,7 +209,7 @@
             //console.log($("#searchInputs").val())
 
             // initialize Masonry
-            var $container = $('#collra_result');
+            var $container = $('#list #collra_result');
 
             $container.masonry({
                 itemSelector: '.grid-item',
@@ -137,42 +220,6 @@
             $container.imagesLoaded(function () {
                 $container.masonry();
             });
-
-            // bind click to open detail view
-            $(".grid-item-photo > a").click(_openDetailView)
-
-            var ias = $.ias({
-                container: ".grid",
-                item: ".grid-item",
-                pagination: ".pager",
-                next: "a",
-                delay: 1200
-            });
-
-            ias.on('render', function (newElements) {
-                $(newElements).css({ opacity: 0 });
-            });
-
-            ias.on('rendered', function (newElements) {
-                // hide new items while they are loading
-                var $newElems = $(newElements);//.css({ opacity: 0 });
-                // ensure that images load before adding to masonry layout
-                $newElems.imagesLoaded(function () {
-                    // show elems now they're ready
-                    $newElems.animate({ opacity: 1 });
-                    $container.masonry('appended', $newElems, true);
-                    // bind click to open detail view
-                    $(".grid-item-photo > a").click(_openDetailView)
-                });
-            });
-
-            ias.extension(new IASSpinnerExtension({
-                src: 'img/loading.gif',
-                html: '<div class="ias-spinner" style=""><img src="{src}" alt="Loading..."><div><em>Loading next items...</em></div></div>'
-            }));
-            ias.extension(new IASNoneLeftExtension({
-                html: '<div class="ias-noneleft" style="text-align:center"><p><em>You reached the end!</em></p></div>'
-            }));
 
         });
 

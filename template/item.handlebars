@@ -2,7 +2,7 @@
     {{#each this}}
     <div class="grid-item" id="{{id}}">
         <div class="grid-item-photo">
-            <a href="#{{id}}">
+            <a href="#{{id}}" class="open-detail-view">
                 <img src="{{item.img}}">
             </a>
             <div class="glyphicon rating">
@@ -30,8 +30,14 @@
     </div>
     {{/each}}
 
-    <nav class="pager">
-        <a href="page.html" class="btn btn-block btn-success">Next</a>
+    <nav class="grid-pager" data-page="2">
+        <a href="#" class="btn btn-block btn-success">Next</a>
     </nav>
-
+    <div class="grid-spinner">
+        <img src="img/loading.gif" alt="Loading...">
+        <div><strong><em>Loading next items...</em></strong></div>
+    </div>
+    <div class="grid-noneleft">
+        <div><strong><em>You reached the end!</em></strong></div>
+    </div>
 </div>

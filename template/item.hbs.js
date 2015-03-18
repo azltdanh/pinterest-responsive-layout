@@ -4,7 +4,7 @@
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\">\r\n        <div class=\"grid-item-photo\">\r\n            <a href=\"#"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">\r\n                <img src=\""
+    + "\" class=\"open-detail-view\">\r\n                <img src=\""
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.item : depth0)) != null ? stack1.img : stack1), depth0))
     + "\">\r\n            </a>\r\n            <div class=\"glyphicon rating\">\r\n                <div>\r\n                    <span>"
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.statistic : depth0)) != null ? stack1.rating : stack1), depth0))
@@ -37,5 +37,5 @@
   var stack1, buffer = "﻿<div id=\"collra_result\" class=\"grid\">\r\n";
   stack1 = helpers.each.call(depth0, depth0, {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "\r\n    <nav class=\"pager\">\r\n        <a href=\"page.html\" class=\"btn btn-block btn-success\">Next</a>\r\n    </nav>\r\n\r\n</div>";
+  return buffer + "\r\n    <nav class=\"grid-pager\" data-page=\"2\">\r\n        <a href=\"#\" class=\"btn btn-block btn-success\">Next</a>\r\n    </nav>\r\n    <div class=\"grid-spinner\">\r\n        <img src=\"img/loading.gif\" alt=\"Loading...\">\r\n        <div><strong><em>Loading next items...</em></strong></div>\r\n    </div>\r\n    <div class=\"grid-noneleft\">\r\n        <div><strong><em>You reached the end!</em></strong></div>\r\n    </div>\r\n</div>";
 },"useData":true});

@@ -1,6 +1,7 @@
 function collraApi() {
     // generate 40 items.
-    var _result = _generateResult(40);
+    var _result = [];// = _generateResult(40);
+
 
     function _getAvailableTags() {
         return [
@@ -42,9 +43,12 @@ function collraApi() {
         ];
     }
 
-    function _generateResult(count) {
+    function _generateResult(count, page) {
         var result = [];
-        for (var i = 1; i <= count; i++) {
+        var end = count * (page || 1);
+        var start = end - count + 1;
+        console.log(start + '-' + end)
+        for (var i = start; i <= end; i++) {
             result.push(_generateItem(i));
         }
         return result;
@@ -196,8 +200,10 @@ function collraApi() {
         return item;
     }
 
-    function _search(words) {
-        return _result;
+    function _search(term, page) {
+        var response = _generateResult(10, page);
+        _result = _result.concat(response);
+        return response;
     }
 
     function _getItem(id) {
@@ -212,6 +218,6 @@ function collraApi() {
     return {
         'search': _search,
         'getItem': _getItem,
-        'getAvailableTags': _getAvailableTags
+        'getAvailableTags': _getAvailableTags,
     }
 }

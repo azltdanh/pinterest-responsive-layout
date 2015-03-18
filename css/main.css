@@ -395,7 +395,7 @@ a, a:visited, a:hover, a:focus {
     margin: 0 0 20px 0;
 }
 
-.grid-item-detail .btn-close {
+.grid-item-detail .close-detail-view {
     position: fixed;
     top: 50px;
     z-index: 1040;
@@ -404,42 +404,52 @@ a, a:visited, a:hover, a:focus {
     border-top-width: 0;
 }
 
-    .grid-item-detail .btn-close:hover {
+    .grid-item-detail .close-detail-view:hover {
         background-color: #FFFFFF;
     }
 
 @media (max-width: 767px) {
-    .grid-item-detail .btn-close.affix-top {
-        top: 92px;
-    }
-
-    .grid-item-detail .btn-close.affix {
+    .grid-item-detail .close-detail-view.affix-top {
+        position: absolute;
         top: 0;
     }
 
-    .grid-item-detail .btn-close.affix-bottom {
+    .grid-item-detail .close-detail-view.affix {
+        top: 0;
+    }
+
+    .grid-item-detail .close-detail-view.affix-bottom {
     }
 }
 
-.ias-spinner, .ias-noneleft {
+.grid-pager {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+}
+
+@media (min-width: 1200px) {
+    .grid-pager {
+        width: 40%;
+        left: 30%;
+    }
+}
+
+.grid-spinner, .grid-noneleft {
     background: none repeat scroll 0 0 #000;
     border-radius: 10px;
-    bottom: 40px;
+    bottom: 20px;
     color: #fff;
     left: 50%;
     opacity: 0.8;
     padding: 10px;
-    position: fixed;
+    position: absolute;
     text-align: center;
     width: 200px;
     margin-left: -100px;
     z-index: 100;
-}
-
-@media (min-width: 1200px) {
-    .ias-spinner, .ias-noneleft {
-        left: 41.66665%; /* .col-lg-10 main have the width of 83.3333% */
-    }
+    display: none;
 }
 
 /* ==========================================================================
