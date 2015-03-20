@@ -58,7 +58,8 @@
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="js/vendor/tag-it.min.js"></script>
     <script src="js/vendor/imagesloaded.pkgd.min.js"></script>
-    <script src="js/vendor/masonry.pkgd.min.js"></script>
+    <!--<script src="js/vendor/masonry.pkgd.min.js"></script>-->
+    <script src="js/vendor/isotope.pkgd.min.js"></script>
 
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
@@ -70,6 +71,26 @@
         var collra = new collraApi();
         var current_result = undefined;
         var current_scroll = 0;
+
+        $.fn.isotopeImagesReveal = function ($items) {
+            var iso = this.data('isotope');
+            var itemSelector = iso.options.itemSelector;
+            // hide by default
+            $items.hide();
+            // append to container
+            this.append($items);
+            $items.imagesLoaded().progress(function (imgLoad, image) {
+                // get item
+                // image is imagesLoaded class, not <img>, <img> is image.img
+                var $item = $(image.img).parents(itemSelector);
+                // un-hide item
+                $item.show();
+                // isotope does its thing
+                iso.appended($item);
+            });
+
+            return this;
+        };
 
         function _isElementInView(elem) {
             if (elem.length > 0) {
@@ -108,12 +129,12 @@
 
                             var $newElems = $('#list_next .grid-item').css({ opacity: 0 }).insertBefore("#list .grid-pager");
 
-                            // ensure that images load before adding to masonry layout
+                            // ensure that images load before adding to layout
                             $newElems.imagesLoaded(function () {
                                 // show elems now they're ready
                                 $newElems.animate({ opacity: 1 });
-                                $('#list #collra_result').masonry('appended', $newElems);
-
+                                $('#list #collra_result').isotope('appended', $newElems);
+                                //$('#list #collra_result').isotopeImagesReveal($newElems);
                                 // enable scoll again
                                 $(window).scroll(_infiniteScroll);
 
@@ -156,7 +177,7 @@
         }
 
         function _openDetailView(e) {
-            e.preventDefault();
+            //e.preventDefault();
 
             // get the current id of clicked item.
             var anchor = $(e.target).closest('a');
@@ -208,17 +229,29 @@
 
             //console.log($("#searchInputs").val())
 
-            // initialize Masonry
+            // initialize
             var $container = $('#list #collra_result');
 
-            $container.masonry({
+            $container.isotope({
                 itemSelector: '.grid-item',
-                isFitWidth: true
+                //layoutMode: 'fitRows',
+                masonry: {
+                    isFitWidth: true
+                }
             });
 
-            // layout Masonry again after all images have loaded
+            // filter items
+            $('#sidebar').on('click', '[data-filter]', function (e) {
+                e.preventDefault();
+                $(window).scrollTop(0);
+                $(this).closest('li').addClass('active').siblings().removeClass('active');
+                var filterValue = $(this).attr('data-filter');
+                $container.isotope({ filter: filterValue });
+            });
+            
+            // layout again after all images have loaded
             $container.imagesLoaded(function () {
-                $container.masonry();
+                $container.isotope();
             });
 
         });

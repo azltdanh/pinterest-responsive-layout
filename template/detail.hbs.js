@@ -1,7 +1,5 @@
 ﻿var detail = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-  var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, blockHelperMissing=helpers.blockHelperMissing, buffer = "    <div class=\"row\">\r\n        <div class=\"col-sm-5\">\r\n            <div class=\"grid-item\" id=\""
-    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">\r\n                <div class=\"grid-item-photo\">\r\n                    <!--<a href=\"#"
+  var stack1, helper, options, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, lambda=this.lambda, blockHelperMissing=helpers.blockHelperMissing, buffer = "    <div class=\"row\">\r\n        <div class=\"col-sm-5\">\r\n            <div class=\"grid-item\">\r\n                <div class=\"grid-item-photo\">\r\n                    <!--<a href=\"#"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\">-->\r\n                        <img src=\""
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.item : depth0)) != null ? stack1.img : stack1), depth0))

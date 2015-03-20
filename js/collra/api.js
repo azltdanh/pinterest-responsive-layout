@@ -201,7 +201,7 @@ function collraApi() {
     }
 
     function _search(term, page) {
-        var response = _generateResult(10, page);
+        var response = _generateResult(40, page);
         _result = _result.concat(response);
         return response;
     }
